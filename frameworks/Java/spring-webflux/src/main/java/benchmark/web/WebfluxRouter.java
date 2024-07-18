@@ -22,15 +22,17 @@ public class WebfluxRouter {
 	}
 
 	@Bean
-	public RouterFunction<ServerResponse> route(WebfluxHandler handler) {
+	public RouterFunction<ServerResponse> route(
+			TextHandler textHandler, JsonHandler jsonHandler, DbHandler dbHandler) {
+
 		return request -> {
 			HandlerFunction<ServerResponse> fn = switch (request.uri().getRawPath()) {
-				case "/plaintext" -> handler::plaintext;
-				case "/json" -> handler::json;
-				case "/db" -> handler::db;
-				case "/queries" -> handler::queries;
-				case "/updates" -> handler::updates;
-				case "/fortunes" -> handler::fortunes;
+				case "/plaintext" -> textHandler;
+				case "/json" -> jsonHandler;
+				case "/db" -> dbHandler::db;
+				case "/queries" -> dbHandler::queries;
+				case "/updates" -> dbHandler::updates;
+				case "/fortunes" -> dbHandler::fortunes;
 				default -> r -> ServerResponse.notFound().build();
 			};
 			return Mono.just(fn);
