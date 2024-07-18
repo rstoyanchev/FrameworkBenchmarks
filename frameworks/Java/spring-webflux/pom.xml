@@ -20,6 +20,7 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-framework.version>6.2.0-M6</spring-framework.version>
     </properties>
 
     <dependencies>
@@ -44,6 +45,13 @@
             <artifactId>spring-boot-starter-data-mongodb-reactive</artifactId>
         </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>spring-milestone</id>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
 
     <build>
         <finalName>${project.artifactId}</finalName>
